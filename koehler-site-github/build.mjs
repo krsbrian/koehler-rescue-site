@@ -99,7 +99,11 @@ function withDeliveryCodes(src) {
     )
     .replace(
       "return jsonResponse({ ok: false, error: message }, status);",
-      "return jsonResponse(code ? { ok: false, error: message, code } : { ok: false, error: message }, status);"
+      "return jsonResponse(code ? { ok: false, error: message, code, detail: globalThis.__pm } : { ok: false, error: message }, status);"
+    )
+    .replace(
+      'console.error("Email provider rejected the message", res.status, detail.slice(0, 500));',
+      'globalThis.__pm = String(detail).slice(0, 240); console.error("Email provider rejected the message", res.status, detail.slice(0, 500));'
     )
     .replace(
       /(console\.error\("Email provider rejected the message"[\s\S]{0,600}?)return respond\(wantsHtml, data, 502\);/,

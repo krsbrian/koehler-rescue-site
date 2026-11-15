@@ -84,6 +84,37 @@ for (const p of POSTS) {
   redirects[`/${p.slug}`] = `/blog/${p.slug}`;
 }
 
+/**
+ * Safety net: older copies of the worker template don't report why a send
+ * failed. Patch the generated worker so a rejected delivery names the
+ * provider's HTTP status, which makes a broken setup diagnosable from
+ * outside. A no-op when the template already does this.
+ */
+function withDeliveryCodes(src) {
+  if (src.includes('"provider_" + res.status')) return src;
+  return src
+    .replace(
+      "function respond(wantsHtml, data, status) {",
+      "function respond(wantsHtml, data, status, code) {"
+    )
+    .replace(
+      "return jsonResponse({ ok: false, error: message }, status);",
+      "return jsonResponse(code ? { ok: false, error: message, code } : { ok: false, error: message }, status);"
+    )
+    .replace(
+      /(console\.error\("Email provider rejected the message"[\s\S]{0,600}?)return respond\(wantsHtml, data, 502\);/,
+      '$1return respond(wantsHtml, data, 502, "provider_" + res.status);'
+    )
+    .replace(
+      /return respond\(wantsHtml, data, 502\);/g,
+      'return respond(wantsHtml, data, 502, "provider_unreachable");'
+    )
+    .replace(
+      /return respond\(wantsHtml, data, 503\);/g,
+      'return respond(wantsHtml, data, 503, "not_configured");'
+    );
+}
+
 /* ---------------------------------------------------------------- build */
 async function build() {
   await rm(dist, { recursive: true, force: true });
@@ -159,9 +190,11 @@ Host: ${SITE.url.replace("https://", "")}
   const fileMap = Object.fromEntries(
     [...routes.keys()].map((p) => [p, p === "/" ? "/index.html" : `${p}.html`])
   );
-  const worker = template
-    .replace("/*__FILES__*/ {}", JSON.stringify(fileMap, null, 0))
-    .replace("/*__REDIRECTS__*/ {}", JSON.stringify(redirects, null, 0));
+  const worker = withDeliveryCodes(
+    template
+      .replace("/*__FILES__*/ {}", JSON.stringify(fileMap, null, 0))
+      .replace("/*__REDIRECTS__*/ {}", JSON.stringify(redirects, null, 0))
+  );
   const workerPath = join(root, "worker.js");
   await writeFile(workerPath, worker, "utf8");
 

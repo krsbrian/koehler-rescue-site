@@ -1,0 +1,21 @@
+{
+  "name": "koehler-rescue-website",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Koehler Rescue Services LLC - 24/7 roadside assistance website for Michigan's Thumb Region",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs --watch",
+    "serve": "node build.mjs && node server.mjs",
+    "check:links": "node tools/check-links.mjs",
+    "test:forms": "node tools/test-form.mjs",
+    "test:netlify": "node tools/test-netlify.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "wrangler": "^4.162.0"
+  }
+}

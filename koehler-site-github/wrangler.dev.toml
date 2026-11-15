@@ -1,0 +1,11 @@
+# Local Workers compatibility test for the built site.
+# Run: npx wrangler dev --config wrangler.dev.toml --port 8787
+name = "koehler-rescue-local"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+not_found_handling = "none"

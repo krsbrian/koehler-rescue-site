@@ -1,0 +1,492 @@
+{
+  "routes": [
+    "/",
+    "/about",
+    "/services",
+    "/pricing",
+    "/reviews",
+    "/Faqs",
+    "/contact",
+    "/request-roadside-assistance",
+    "/privacy",
+    "/review-platforms",
+    "/verified-partners-memberships",
+    "/motor-club-insurance-partners",
+    "/services/auto-lockout-service",
+    "/services/fuel-delivery-service",
+    "/services/jump-start-service",
+    "/services/tire-change-service",
+    "/services/tire-repair-service",
+    "/services/winch-out-service",
+    "/coverage-area",
+    "/coverage-area/tuscola-county",
+    "/coverage-area/huron-county",
+    "/coverage-area/sanilac-county",
+    "/coverage-area/bay-county",
+    "/coverage-area/saginaw-county",
+    "/coverage-area/lapeer-county",
+    "/coverage-area/genesee-county",
+    "/coverage-area/shiawassee-county",
+    "/coverage-area/saint-clair-county",
+    "/coverage-area/midland-county",
+    "/coverage-area/tuscola-county/caro",
+    "/coverage-area/tuscola-county/cass-city",
+    "/coverage-area/tuscola-county/vassar",
+    "/coverage-area/tuscola-county/millington",
+    "/coverage-area/tuscola-county/reese",
+    "/coverage-area/tuscola-county/mayville",
+    "/coverage-area/tuscola-county/kingston",
+    "/coverage-area/tuscola-county/akron",
+    "/coverage-area/tuscola-county/fairgrove",
+    "/coverage-area/tuscola-county/gagetown",
+    "/coverage-area/tuscola-county/unionville",
+    "/blog",
+    "/blog/roadside-assistance-near-me-find-fast-help-when-you-re-stranded",
+    "/blog/roadside-assistance-in-the-thumb-region-of-michigan-24-7-help",
+    "/blog/roadside-help-near-me-fast-24-7-emergency-assistance-guide",
+    "/blog/fuel-delivery-service-in-michigans-thumb-region-keep-your-journey-smooth-with-koehler-rescue-services",
+    "/blog/essential-guide-to-tire-repair-keep-your-journeys-smooth-in-michigan-s-thumb-region",
+    "/blog/lockout-service-ensuring-you-re-never-stuck-again-in-the-thumb-region-of-michigan",
+    "/blog/understanding-roadside-assistance-how-koehler-rescue-services-can-keep-you-moving",
+    "/blog/tire-repair-essentials-what-you-need-to-know-for-thumb-region-safety",
+    "/blog/how-to-safely-jump-start-your-car-in-michigan-s-thumb-region",
+    "/blog/keys-locked-in-car-how-to-handle-this-roadside-dilemma-in-michigan-s-thumb-region",
+    "/blog/tire-change-essentials-quick-solutions-for-your-roadside-emergencies",
+    "/blog/auto-lockout-service-fast-24-7-solutions-michigan-2026",
+    "/blog/jumping-a-car-battery-complete-step-by-step-guide-2026",
+    "/blog/car-cranks-but-wont-start-complete-2026-diagnostic-guide",
+    "/blog/car-not-starting-after-getting-gas-7-common-causes-solutions",
+    "/blog/when-to-check-air-pressure-in-tires-complete-guide-2026",
+    "/blog/tire-weather-checking-essential-guide-for-safe-driving-2026",
+    "/blog/website-update-in-progress",
+    "/blog/koehler-rescue-services-fast-reliable-roadside-assistance-in-caro-michigan",
+    "/blog/mastering-tire-changes-keep-rolling-with-confidence-in-michigans-thumb-region",
+    "/blog/how-to-safely-unlock-your-vehicle-expert-tips-from-koehler-rescue-services",
+    "/blog/solving-auto-lockout-headaches-your-go-to-guide-for-quick-help",
+    "/blog/how-to-safely-jump-start-your-car-expert-advice-from-koehler-rescue-services",
+    "/blog/unlock-my-vehicle-your-essential-guide-to-quick-and-hassle-free-solutions",
+    "/blog/understanding-fuel-delivery-a-lifeline-for-stranded-drivers-in-michigan-s-thumb-region",
+    "/blog/winch-out-services-in-michigan-getting-you-back-on-the-road-safely",
+    "/blog/a-comprehensive-guide-to-fuel-delivery-services-in-the-thumb-region-of-michigan",
+    "/blog/stuck-in-mud-snow-or-ditch-heres-how-we-can-help",
+    "/blog/understanding-jump-start-services-avoid-getting-left-stranded",
+    "/blog/jump-start-service-your-lifeline-on-the-roads-of-michigan-s-thumb-region",
+    "/blog/comprehensive-guide-to-roadside-assistance-in-michigans-thumb-region",
+    "/blog/why-24-7-roadside-assistance-is-essential-for-drivers-in-michigan-s-thumb-region",
+    "/blog/fast-reliable-roadside-assistance-in-michigan-koehler-rescue-services",
+    "/blog/unlocking-peace-of-mind-how-koehler-rescue-services-simplifies-lockout-situations",
+    "/blog/24-7-fuel-delivery-your-lifeline-on-michigan-s-roads",
+    "/blog/why-24-hour-roadside-assistance-is-essential-in-michigan-s-thumb-region",
+    "/blog/auto-lockout-service-regain-access-to-your-vehicle-swiftly-and-safely",
+    "/blog/dealing-with-flat-tires-your-comprehensive-guide-to-roadside-safety",
+    "/blog/avoiding-stress-how-lockout-services-in-michigan-s-thumb-region-can-be-your-lifesaver",
+    "/blog/the-complete-guide-to-lockout-services-never-get-stuck-again",
+    "/blog/avoid-being-stranded-expert-tips-for-handling-a-flat-tire-in-the-thumb-region",
+    "/blog/reliable-fuel-delivery-services-help-when-you-need-it-most",
+    "/blog/never-be-left-stranded-your-comprehensive-guide-to-handling-a-flat-tire"
+  ],
+  "redirects": {
+    "/home": "/",
+    "/faqs": "/Faqs",
+    "/FAQ": "/Faqs",
+    "/faq": "/Faqs",
+    "/review": "/reviews",
+    "/reviews/": "/reviews",
+    "/coverage": "/coverage-area",
+    "/service-area": "/coverage-area",
+    "/services/tire-repair": "/services/tire-repair-service",
+    "/services/fuel-delivery": "/services/fuel-delivery-service",
+    "/services/lockout": "/services/auto-lockout-service",
+    "/services/winch-out": "/services/winch-out-service",
+    "/auto-lockout-service": "/services/auto-lockout-service",
+    "/services/auto-lockout": "/services/auto-lockout-service",
+    "/fuel-delivery-service": "/services/fuel-delivery-service",
+    "/jump-start-service": "/services/jump-start-service",
+    "/services/jump-start": "/services/jump-start-service",
+    "/tire-change-service": "/services/tire-change-service",
+    "/services/tire-change": "/services/tire-change-service",
+    "/tire-repair-service": "/services/tire-repair-service",
+    "/winch-out-service": "/services/winch-out-service",
+    "/roadside-assistance-near-me-find-fast-help-when-you-re-stranded": "/blog/roadside-assistance-near-me-find-fast-help-when-you-re-stranded",
+    "/roadside-assistance-in-the-thumb-region-of-michigan-24-7-help": "/blog/roadside-assistance-in-the-thumb-region-of-michigan-24-7-help",
+    "/roadside-help-near-me-fast-24-7-emergency-assistance-guide": "/blog/roadside-help-near-me-fast-24-7-emergency-assistance-guide",
+    "/fuel-delivery-service-in-michigans-thumb-region-keep-your-journey-smooth-with-koehler-rescue-services": "/blog/fuel-delivery-service-in-michigans-thumb-region-keep-your-journey-smooth-with-koehler-rescue-services",
+    "/essential-guide-to-tire-repair-keep-your-journeys-smooth-in-michigan-s-thumb-region": "/blog/essential-guide-to-tire-repair-keep-your-journeys-smooth-in-michigan-s-thumb-region",
+    "/lockout-service-ensuring-you-re-never-stuck-again-in-the-thumb-region-of-michigan": "/blog/lockout-service-ensuring-you-re-never-stuck-again-in-the-thumb-region-of-michigan",
+    "/understanding-roadside-assistance-how-koehler-rescue-services-can-keep-you-moving": "/blog/understanding-roadside-assistance-how-koehler-rescue-services-can-keep-you-moving",
+    "/tire-repair-essentials-what-you-need-to-know-for-thumb-region-safety": "/blog/tire-repair-essentials-what-you-need-to-know-for-thumb-region-safety",
+    "/how-to-safely-jump-start-your-car-in-michigan-s-thumb-region": "/blog/how-to-safely-jump-start-your-car-in-michigan-s-thumb-region",
+    "/keys-locked-in-car-how-to-handle-this-roadside-dilemma-in-michigan-s-thumb-region": "/blog/keys-locked-in-car-how-to-handle-this-roadside-dilemma-in-michigan-s-thumb-region",
+    "/tire-change-essentials-quick-solutions-for-your-roadside-emergencies": "/blog/tire-change-essentials-quick-solutions-for-your-roadside-emergencies",
+    "/auto-lockout-service-fast-24-7-solutions-michigan-2026": "/blog/auto-lockout-service-fast-24-7-solutions-michigan-2026",
+    "/jumping-a-car-battery-complete-step-by-step-guide-2026": "/blog/jumping-a-car-battery-complete-step-by-step-guide-2026",
+    "/car-cranks-but-wont-start-complete-2026-diagnostic-guide": "/blog/car-cranks-but-wont-start-complete-2026-diagnostic-guide",
+    "/car-not-starting-after-getting-gas-7-common-causes-solutions": "/blog/car-not-starting-after-getting-gas-7-common-causes-solutions",
+    "/when-to-check-air-pressure-in-tires-complete-guide-2026": "/blog/when-to-check-air-pressure-in-tires-complete-guide-2026",
+    "/tire-weather-checking-essential-guide-for-safe-driving-2026": "/blog/tire-weather-checking-essential-guide-for-safe-driving-2026",
+    "/website-update-in-progress": "/blog/website-update-in-progress",
+    "/koehler-rescue-services-fast-reliable-roadside-assistance-in-caro-michigan": "/blog/koehler-rescue-services-fast-reliable-roadside-assistance-in-caro-michigan",
+    "/mastering-tire-changes-keep-rolling-with-confidence-in-michigans-thumb-region": "/blog/mastering-tire-changes-keep-rolling-with-confidence-in-michigans-thumb-region",
+    "/how-to-safely-unlock-your-vehicle-expert-tips-from-koehler-rescue-services": "/blog/how-to-safely-unlock-your-vehicle-expert-tips-from-koehler-rescue-services",
+    "/solving-auto-lockout-headaches-your-go-to-guide-for-quick-help": "/blog/solving-auto-lockout-headaches-your-go-to-guide-for-quick-help",
+    "/how-to-safely-jump-start-your-car-expert-advice-from-koehler-rescue-services": "/blog/how-to-safely-jump-start-your-car-expert-advice-from-koehler-rescue-services",
+    "/unlock-my-vehicle-your-essential-guide-to-quick-and-hassle-free-solutions": "/blog/unlock-my-vehicle-your-essential-guide-to-quick-and-hassle-free-solutions",
+    "/understanding-fuel-delivery-a-lifeline-for-stranded-drivers-in-michigan-s-thumb-region": "/blog/understanding-fuel-delivery-a-lifeline-for-stranded-drivers-in-michigan-s-thumb-region",
+    "/winch-out-services-in-michigan-getting-you-back-on-the-road-safely": "/blog/winch-out-services-in-michigan-getting-you-back-on-the-road-safely",
+    "/a-comprehensive-guide-to-fuel-delivery-services-in-the-thumb-region-of-michigan": "/blog/a-comprehensive-guide-to-fuel-delivery-services-in-the-thumb-region-of-michigan",
+    "/stuck-in-mud-snow-or-ditch-heres-how-we-can-help": "/blog/stuck-in-mud-snow-or-ditch-heres-how-we-can-help",
+    "/understanding-jump-start-services-avoid-getting-left-stranded": "/blog/understanding-jump-start-services-avoid-getting-left-stranded",
+    "/jump-start-service-your-lifeline-on-the-roads-of-michigan-s-thumb-region": "/blog/jump-start-service-your-lifeline-on-the-roads-of-michigan-s-thumb-region",
+    "/comprehensive-guide-to-roadside-assistance-in-michigans-thumb-region": "/blog/comprehensive-guide-to-roadside-assistance-in-michigans-thumb-region",
+    "/why-24-7-roadside-assistance-is-essential-for-drivers-in-michigan-s-thumb-region": "/blog/why-24-7-roadside-assistance-is-essential-for-drivers-in-michigan-s-thumb-region",
+    "/fast-reliable-roadside-assistance-in-michigan-koehler-rescue-services": "/blog/fast-reliable-roadside-assistance-in-michigan-koehler-rescue-services",
+    "/unlocking-peace-of-mind-how-koehler-rescue-services-simplifies-lockout-situations": "/blog/unlocking-peace-of-mind-how-koehler-rescue-services-simplifies-lockout-situations",
+    "/24-7-fuel-delivery-your-lifeline-on-michigan-s-roads": "/blog/24-7-fuel-delivery-your-lifeline-on-michigan-s-roads",
+    "/why-24-hour-roadside-assistance-is-essential-in-michigan-s-thumb-region": "/blog/why-24-hour-roadside-assistance-is-essential-in-michigan-s-thumb-region",
+    "/auto-lockout-service-regain-access-to-your-vehicle-swiftly-and-safely": "/blog/auto-lockout-service-regain-access-to-your-vehicle-swiftly-and-safely",
+    "/dealing-with-flat-tires-your-comprehensive-guide-to-roadside-safety": "/blog/dealing-with-flat-tires-your-comprehensive-guide-to-roadside-safety",
+    "/avoiding-stress-how-lockout-services-in-michigan-s-thumb-region-can-be-your-lifesaver": "/blog/avoiding-stress-how-lockout-services-in-michigan-s-thumb-region-can-be-your-lifesaver",
+    "/the-complete-guide-to-lockout-services-never-get-stuck-again": "/blog/the-complete-guide-to-lockout-services-never-get-stuck-again",
+    "/avoid-being-stranded-expert-tips-for-handling-a-flat-tire-in-the-thumb-region": "/blog/avoid-being-stranded-expert-tips-for-handling-a-flat-tire-in-the-thumb-region",
+    "/reliable-fuel-delivery-services-help-when-you-need-it-most": "/blog/reliable-fuel-delivery-services-help-when-you-need-it-most",
+    "/never-be-left-stranded-your-comprehensive-guide-to-handling-a-flat-tire": "/blog/never-be-left-stranded-your-comprehensive-guide-to-handling-a-flat-tire"
+  },
+  "files": [
+    {
+      "path": "/",
+      "bytes": 76060
+    },
+    {
+      "path": "/about",
+      "bytes": 47460
+    },
+    {
+      "path": "/services",
+      "bytes": 42796
+    },
+    {
+      "path": "/pricing",
+      "bytes": 40120
+    },
+    {
+      "path": "/reviews",
+      "bytes": 36445
+    },
+    {
+      "path": "/Faqs",
+      "bytes": 44124
+    },
+    {
+      "path": "/contact",
+      "bytes": 34986
+    },
+    {
+      "path": "/request-roadside-assistance",
+      "bytes": 36578
+    },
+    {
+      "path": "/privacy",
+      "bytes": 25261
+    },
+    {
+      "path": "/review-platforms",
+      "bytes": 29511
+    },
+    {
+      "path": "/verified-partners-memberships",
+      "bytes": 34485
+    },
+    {
+      "path": "/motor-club-insurance-partners",
+      "bytes": 34200
+    },
+    {
+      "path": "/services/auto-lockout-service",
+      "bytes": 46264
+    },
+    {
+      "path": "/services/fuel-delivery-service",
+      "bytes": 45247
+    },
+    {
+      "path": "/services/jump-start-service",
+      "bytes": 45109
+    },
+    {
+      "path": "/services/tire-change-service",
+      "bytes": 45936
+    },
+    {
+      "path": "/services/tire-repair-service",
+      "bytes": 44741
+    },
+    {
+      "path": "/services/winch-out-service",
+      "bytes": 45838
+    },
+    {
+      "path": "/coverage-area",
+      "bytes": 49236
+    },
+    {
+      "path": "/coverage-area/tuscola-county",
+      "bytes": 52086
+    },
+    {
+      "path": "/coverage-area/huron-county",
+      "bytes": 51753
+    },
+    {
+      "path": "/coverage-area/sanilac-county",
+      "bytes": 51778
+    },
+    {
+      "path": "/coverage-area/bay-county",
+      "bytes": 50529
+    },
+    {
+      "path": "/coverage-area/saginaw-county",
+      "bytes": 51250
+    },
+    {
+      "path": "/coverage-area/lapeer-county",
+      "bytes": 51199
+    },
+    {
+      "path": "/coverage-area/genesee-county",
+      "bytes": 51765
+    },
+    {
+      "path": "/coverage-area/shiawassee-county",
+      "bytes": 50977
+    },
+    {
+      "path": "/coverage-area/saint-clair-county",
+      "bytes": 51134
+    },
+    {
+      "path": "/coverage-area/midland-county",
+      "bytes": 49861
+    },
+    {
+      "path": "/coverage-area/tuscola-county/caro",
+      "bytes": 48263
+    },
+    {
+      "path": "/coverage-area/tuscola-county/cass-city",
+      "bytes": 47977
+    },
+    {
+      "path": "/coverage-area/tuscola-county/vassar",
+      "bytes": 47910
+    },
+    {
+      "path": "/coverage-area/tuscola-county/millington",
+      "bytes": 47905
+    },
+    {
+      "path": "/coverage-area/tuscola-county/reese",
+      "bytes": 47847
+    },
+    {
+      "path": "/coverage-area/tuscola-county/mayville",
+      "bytes": 47832
+    },
+    {
+      "path": "/coverage-area/tuscola-county/kingston",
+      "bytes": 47798
+    },
+    {
+      "path": "/coverage-area/tuscola-county/akron",
+      "bytes": 47752
+    },
+    {
+      "path": "/coverage-area/tuscola-county/fairgrove",
+      "bytes": 47702
+    },
+    {
+      "path": "/coverage-area/tuscola-county/gagetown",
+      "bytes": 47805
+    },
+    {
+      "path": "/coverage-area/tuscola-county/unionville",
+      "bytes": 47813
+    },
+    {
+      "path": "/blog",
+      "bytes": 81167
+    },
+    {
+      "path": "/blog/roadside-assistance-near-me-find-fast-help-when-you-re-stranded",
+      "bytes": 38634
+    },
+    {
+      "path": "/blog/roadside-assistance-in-the-thumb-region-of-michigan-24-7-help",
+      "bytes": 38408
+    },
+    {
+      "path": "/blog/roadside-help-near-me-fast-24-7-emergency-assistance-guide",
+      "bytes": 38137
+    },
+    {
+      "path": "/blog/fuel-delivery-service-in-michigans-thumb-region-keep-your-journey-smooth-with-koehler-rescue-services",
+      "bytes": 38246
+    },
+    {
+      "path": "/blog/essential-guide-to-tire-repair-keep-your-journeys-smooth-in-michigan-s-thumb-region",
+      "bytes": 38164
+    },
+    {
+      "path": "/blog/lockout-service-ensuring-you-re-never-stuck-again-in-the-thumb-region-of-michigan",
+      "bytes": 38166
+    },
+    {
+      "path": "/blog/understanding-roadside-assistance-how-koehler-rescue-services-can-keep-you-moving",
+      "bytes": 38011
+    },
+    {
+      "path": "/blog/tire-repair-essentials-what-you-need-to-know-for-thumb-region-safety",
+      "bytes": 37939
+    },
+    {
+      "path": "/blog/how-to-safely-jump-start-your-car-in-michigan-s-thumb-region",
+      "bytes": 38020
+    },
+    {
+      "path": "/blog/keys-locked-in-car-how-to-handle-this-roadside-dilemma-in-michigan-s-thumb-region",
+      "bytes": 38185
+    },
+    {
+      "path": "/blog/tire-change-essentials-quick-solutions-for-your-roadside-emergencies",
+      "bytes": 38023
+    },
+    {
+      "path": "/blog/auto-lockout-service-fast-24-7-solutions-michigan-2026",
+      "bytes": 37874
+    },
+    {
+      "path": "/blog/jumping-a-car-battery-complete-step-by-step-guide-2026",
+      "bytes": 37990
+    },
+    {
+      "path": "/blog/car-cranks-but-wont-start-complete-2026-diagnostic-guide",
+      "bytes": 37939
+    },
+    {
+      "path": "/blog/car-not-starting-after-getting-gas-7-common-causes-solutions",
+      "bytes": 37894
+    },
+    {
+      "path": "/blog/when-to-check-air-pressure-in-tires-complete-guide-2026",
+      "bytes": 37828
+    },
+    {
+      "path": "/blog/tire-weather-checking-essential-guide-for-safe-driving-2026",
+      "bytes": 37929
+    },
+    {
+      "path": "/blog/website-update-in-progress",
+      "bytes": 37540
+    },
+    {
+      "path": "/blog/koehler-rescue-services-fast-reliable-roadside-assistance-in-caro-michigan",
+      "bytes": 37997
+    },
+    {
+      "path": "/blog/mastering-tire-changes-keep-rolling-with-confidence-in-michigans-thumb-region",
+      "bytes": 37919
+    },
+    {
+      "path": "/blog/how-to-safely-unlock-your-vehicle-expert-tips-from-koehler-rescue-services",
+      "bytes": 37803
+    },
+    {
+      "path": "/blog/solving-auto-lockout-headaches-your-go-to-guide-for-quick-help",
+      "bytes": 37807
+    },
+    {
+      "path": "/blog/how-to-safely-jump-start-your-car-expert-advice-from-koehler-rescue-services",
+      "bytes": 37944
+    },
+    {
+      "path": "/blog/unlock-my-vehicle-your-essential-guide-to-quick-and-hassle-free-solutions",
+      "bytes": 37859
+    },
+    {
+      "path": "/blog/understanding-fuel-delivery-a-lifeline-for-stranded-drivers-in-michigan-s-thumb-region",
+      "bytes": 38005
+    },
+    {
+      "path": "/blog/winch-out-services-in-michigan-getting-you-back-on-the-road-safely",
+      "bytes": 37895
+    },
+    {
+      "path": "/blog/a-comprehensive-guide-to-fuel-delivery-services-in-the-thumb-region-of-michigan",
+      "bytes": 38021
+    },
+    {
+      "path": "/blog/stuck-in-mud-snow-or-ditch-heres-how-we-can-help",
+      "bytes": 37872
+    },
+    {
+      "path": "/blog/understanding-jump-start-services-avoid-getting-left-stranded",
+      "bytes": 37927
+    },
+    {
+      "path": "/blog/jump-start-service-your-lifeline-on-the-roads-of-michigan-s-thumb-region",
+      "bytes": 37905
+    },
+    {
+      "path": "/blog/comprehensive-guide-to-roadside-assistance-in-michigans-thumb-region",
+      "bytes": 37966
+    },
+    {
+      "path": "/blog/why-24-7-roadside-assistance-is-essential-for-drivers-in-michigan-s-thumb-region",
+      "bytes": 37931
+    },
+    {
+      "path": "/blog/fast-reliable-roadside-assistance-in-michigan-koehler-rescue-services",
+      "bytes": 37704
+    },
+    {
+      "path": "/blog/unlocking-peace-of-mind-how-koehler-rescue-services-simplifies-lockout-situations",
+      "bytes": 37914
+    },
+    {
+      "path": "/blog/24-7-fuel-delivery-your-lifeline-on-michigan-s-roads",
+      "bytes": 37713
+    },
+    {
+      "path": "/blog/why-24-hour-roadside-assistance-is-essential-in-michigan-s-thumb-region",
+      "bytes": 37783
+    },
+    {
+      "path": "/blog/auto-lockout-service-regain-access-to-your-vehicle-swiftly-and-safely",
+      "bytes": 37716
+    },
+    {
+      "path": "/blog/dealing-with-flat-tires-your-comprehensive-guide-to-roadside-safety",
+      "bytes": 37686
+    },
+    {
+      "path": "/blog/avoiding-stress-how-lockout-services-in-michigan-s-thumb-region-can-be-your-lifesaver",
+      "bytes": 37803
+    },
+    {
+      "path": "/blog/the-complete-guide-to-lockout-services-never-get-stuck-again",
+      "bytes": 37577
+    },
+    {
+      "path": "/blog/avoid-being-stranded-expert-tips-for-handling-a-flat-tire-in-the-thumb-region",
+      "bytes": 37806
+    },
+    {
+      "path": "/blog/reliable-fuel-delivery-services-help-when-you-need-it-most",
+      "bytes": 37672
+    },
+    {
+      "path": "/blog/never-be-left-stranded-your-comprehensive-guide-to-handling-a-flat-tire",
+      "bytes": 37782
+    }
+  ]
+}

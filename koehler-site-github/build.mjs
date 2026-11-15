@@ -20,6 +20,72 @@ import { blogIndexPage, blogPostPage } from "./src/pages/blog.mjs";
 const root = dirname(fileURLToPath(import.meta.url));
 const dist = join(root, "dist");
 
+/**
+ * Roadsider dispatch embed.
+ *
+ * Roadside requests must become jobs on the dispatch screen rather than email.
+ * Their widget script swaps itself for a responsive iframe pointing at their
+ * intake page, so it has to sit inside the container that the iframe replaces.
+ * Applied to the generated HTML here so the change deploys with this one file.
+ */
+const DISPATCH = {
+  url: "https://app.roadsider.com/r/koehlerrescue",
+  widgetSrc: "https://app.roadsider.com/widget.js",
+  widgetKey: "uYafmkHziPNiij41Swu3zPMq3K9bxkF2",
+};
+
+const DISPATCH_CSS = `
+/* Roadsider dispatch embed */
+.dispatch-frame iframe {
+  width: 100%;
+  border: 0;
+  min-height: 560px;
+  display: block;
+  border-radius: 14px;
+  background: #ffffff;
+}
+.dispatch-fallback {
+  margin: .9rem 0 0;
+  font-size: .85rem;
+  color: #5b6472;
+}
+`;
+
+function dispatchEmbedHtml() {
+  return `<div class="form-card" id="request-form">
+  <h3 style="margin-bottom:.35rem">Roadside assistance request</h3>
+  <p style="font-size:.9rem;margin-bottom:1.1rem">This form goes straight to our dispatch screen, so the job is in front of us the moment you send it.</p>
+  <div class="dispatch-frame">
+    <script src="${DISPATCH.widgetSrc}" data-key="${DISPATCH.widgetKey}" async></script>
+    <p class="dispatch-fallback">Form not loading? <a href="${DISPATCH.url}" target="_blank" rel="noopener">Open it in a new tab</a>, or call <a href="tel:${SITE.phoneRaw}">${SITE.phone}</a> — we answer 24/7.</p>
+  </div>
+</div>
+<p style="font-size:.85rem;margin-top:.9rem">Prefer to write instead? Use the <a href="/contact">contact form</a>, or call <a href="tel:${SITE.phoneRaw}">${SITE.phone}</a> and we'll take the details over the phone.</p>`;
+}
+
+function homeCtaHtml() {
+  return `<div class="form-card">
+  <h3 style="margin-bottom:.5rem">Request roadside assistance</h3>
+  <p style="font-size:.92rem;margin-bottom:1.35rem">Our request form sends your details straight to our dispatch screen, so we see the job the moment you send it. If you're in a travel lane or need help right now, calling is always faster.</p>
+  <a class="btn btn--call btn--block btn--lg" href="tel:${SITE.phoneRaw}" style="margin-bottom:.75rem">Call ${SITE.phone}</a>
+  <a class="btn btn--ghost btn--block btn--lg" href="/request-roadside-assistance">Start a request online</a>
+  <p style="font-size:.8rem;margin-top:1.1rem;margin-bottom:0">Answered 24 hours a day, 7 days a week — including holidays.</p>
+</div>`;
+}
+
+/**
+ * Swaps the email request form for the dispatch intake on the two pages that
+ * carry it. Safe to run on pages that already use the embed: no plain form is
+ * present, so nothing matches.
+ */
+export function applyDispatch(html, path) {
+  const formRe = /<form class="form-card" data-request-form[\s\S]*?<\/form>/;
+  if (!formRe.test(html)) return html;
+  if (path === "/request-roadside-assistance") return html.replace(formRe, dispatchEmbedHtml());
+  if (path === "/") return html.replace(formRe, homeCtaHtml());
+  return html;
+}
+
 /** route: url path -> { render(), sitemap metadata } */
 const routes = new Map();
 
@@ -134,6 +200,8 @@ async function build() {
       console.error(`✗ Failed rendering ${path}:`, err.message);
       throw err;
     }
+    html = applyDispatch(html, path);
+
     const rel = path === "/" ? "index.html" : `${path.replace(/^\//, "")}.html`;
     const file = join(dist, rel);
     await mkdir(dirname(file), { recursive: true });
@@ -146,7 +214,8 @@ async function build() {
   await writeFile(join(dist, "404.html"), notFoundHtml, "utf8");
 
   // assets
-  await cp(join(root, "src/styles/site.css"), join(dist, "assets/site.css"));
+  const baseCss = await readFile(join(root, "src/styles/site.css"), "utf8");
+  await writeFile(join(dist, "assets/site.css"), baseCss + DISPATCH_CSS, "utf8");
   await cp(join(root, "src/client/site.js"), join(dist, "assets/site.js"));
   if (existsSync(join(root, "public"))) {
     await cp(join(root, "public"), join(dist, "assets"), { recursive: true });
@@ -270,7 +339,10 @@ Host: ${SITE.url.replace("https://", "")}
   console.log("  largest pages:", biggest.map((f) => `${f.path} (${Math.round(f.bytes / 1024)}KB)`).join(", "));
 }
 
-build().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Only build when run directly, so the helpers above can be imported by tests.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  build().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

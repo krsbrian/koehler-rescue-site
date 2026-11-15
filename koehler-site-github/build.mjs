@@ -2,6 +2,7 @@ import { mkdir, writeFile, readFile, cp, rm } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { createHash } from "node:crypto";
 
 import { SITE } from "./src/lib/site.mjs";
 import { SERVICES } from "./src/data/services.mjs";
@@ -32,7 +33,7 @@ add("/about", () => aboutPage(), { priority: "0.8" });
 add("/services", () => servicesPage(), { priority: "0.9" });
 add("/pricing", () => pricingPage(), { priority: "0.9" });
 add("/reviews", () => reviewsPage(), { priority: "0.8", changefreq: "monthly" });
-add("/Faqs", () => faqsPage(), { priority: "0.8" });
+add("/faqs", () => faqsPage(), { priority: "0.8" });
 add("/contact", () => contactPage(), { priority: "0.8" });
 add("/request-roadside-assistance", () => requestPage(), { priority: "0.9" });
 add("/privacy", () => privacyPage(), { priority: "0.3" });
@@ -58,9 +59,10 @@ for (const p of POSTS) {
 /* ------------------------------------------------------------ redirects */
 const redirects = {
   "/home": "/",
-  "/faqs": "/Faqs",
-  "/FAQ": "/Faqs",
-  "/faq": "/Faqs",
+  // Hosts normalise path case to lowercase, so the FAQ page lives at /faqs.
+  "/Faqs": "/faqs",
+  "/FAQ": "/faqs",
+  "/faq": "/faqs",
   "/review": "/reviews",
   "/reviews/": "/reviews",
   "/coverage": "/coverage-area",
@@ -176,12 +178,12 @@ Host: ${SITE.url.replace("https://", "")}
   // the leading-underscore file.
   if (process.env.NETLIFY) {
     const pagePaths = [...routes.keys()].filter((p) => p !== "/");
+    // No trailing-slash rules: Netlify matches a "/about/" source against
+    // "/about" as well, which produced a self-redirect loop. Pages are served
+    // directly, and the canonical tag handles the slash variant.
     const redirectLines = [
-      // Serve every page directly. Netlify otherwise infers a redirect from the
-      // "pretty URL" rules below and bounces /about -> /about forever.
       ...pagePaths.map((p) => `${p}  ${p}.html  200`),
       ...Object.entries(redirects).map(([from, to]) => `${from}  ${to}  301!`),
-      ...pagePaths.map((p) => `${p}/  ${p}  301!`),
       "/api/request  /.netlify/functions/request  200",
     ];
     // De-duplicate rules that legitimately repeat (e.g. /reviews/ appears in
@@ -215,7 +217,16 @@ Host: ${SITE.url.replace("https://", "")}
     "utf8"
   );
 
+  // Build identifier so a deployment can be confirmed from the outside:
+  // fetch /build-id.txt and compare it with this build's output.
+  const buildId = createHash("sha256")
+    .update([...files.map((f) => `${f.path}:${f.bytes}`), String(Date.now())].join("|"))
+    .digest("hex")
+    .slice(0, 12);
+  await writeFile(join(dist, "build-id.txt"), `${buildId}\n${new Date().toISOString()}\n`, "utf8");
+
   const totalKb = Math.round(files.reduce((n, f) => n + f.bytes, 0) / 1024);
+  console.log(`✓ Build id ${buildId}`);
   console.log(`✓ Built ${routes.size} pages (${totalKb} KB of HTML) + 404, sitemap, robots`);
   console.log(`✓ ${Object.keys(redirects).length} redirects`);
   const biggest = [...files].sort((a, b) => b.bytes - a.bytes).slice(0, 3);

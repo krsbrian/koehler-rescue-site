@@ -175,12 +175,30 @@ Host: ${SITE.url.replace("https://", "")}
   // for Netlify builds (which set NETLIFY=true); the Cloudflare upload rejects
   // the leading-underscore file.
   if (process.env.NETLIFY) {
+    const pagePaths = [...routes.keys()].filter((p) => p !== "/");
     const redirectLines = [
+      // Serve every page directly. Netlify otherwise infers a redirect from the
+      // "pretty URL" rules below and bounces /about -> /about forever.
+      ...pagePaths.map((p) => `${p}  ${p}.html  200`),
       ...Object.entries(redirects).map(([from, to]) => `${from}  ${to}  301!`),
-      ...[...routes.keys()].filter((p) => p !== "/").map((p) => `${p}/  ${p}  301!`),
+      ...pagePaths.map((p) => `${p}/  ${p}  301!`),
       "/api/request  /.netlify/functions/request  200",
     ];
-    await writeFile(join(dist, "_redirects"), redirectLines.join("\n") + "\n", "utf8");
+    // De-duplicate rules that legitimately repeat (e.g. /reviews/ appears in
+    // both the route list and the legacy map), and fail on real conflicts.
+    const bySource = new Map();
+    const uniqueLines = [];
+    for (const line of redirectLines) {
+      const source = line.slice(0, line.indexOf("  "));
+      const existing = bySource.get(source);
+      if (existing) {
+        if (existing !== line) throw new Error(`Conflicting redirect rules for ${source}`);
+        continue;
+      }
+      bySource.set(source, line);
+      uniqueLines.push(line);
+    }
+    await writeFile(join(dist, "_redirects"), uniqueLines.join("\n") + "\n", "utf8");
   }
 
   // Fail the build if the generated worker doesn't parse.

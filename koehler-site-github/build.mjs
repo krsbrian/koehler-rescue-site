@@ -34,6 +34,32 @@ const DISPATCH = {
   widgetKey: "uYafmkHziPNiij41Swu3zPMq3K9bxkF2",
 };
 
+/**
+ * Real KRS logo. Kept at the repository root so it deploys alongside build.mjs
+ * without needing an upload into a subfolder.
+ */
+const LOGO_IMG = `<img class="brand__mark" src="/assets/logo.png" alt="" width="50" height="40" decoding="async" />`;
+
+const BRAND_CSS = `
+/* Real logo + gradient business name */
+.brand__mark {
+  width: 50px;
+  height: 40px;
+  object-fit: contain;
+  flex: none;
+}
+.header .brand__name {
+  background: linear-gradient(100deg, #0d49bd 0%, #1fbcf7 52%, #6be1d0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+@media (max-width: 720px) {
+  .brand__mark { width: 44px; height: 36px; }
+}
+`;
+
 const DISPATCH_CSS = `
 /* Roadsider dispatch embed */
 .dispatch-frame iframe {
@@ -78,6 +104,12 @@ function homeCtaHtml() {
  * carry it. Safe to run on pages that already use the embed: no plain form is
  * present, so nothing matches.
  */
+export function applyBrand(html) {
+  // Swap the drawn placeholder shield for the real logo. No-op once the
+  // template itself renders the image.
+  return html.replace(/<svg class="brand__mark"[\s\S]*?<\/svg>/g, LOGO_IMG);
+}
+
 export function applyDispatch(html, path) {
   const formRe = /<form class="form-card" data-request-form[\s\S]*?<\/form>/;
   if (!formRe.test(html)) return html;
@@ -200,7 +232,7 @@ async function build() {
       console.error(`✗ Failed rendering ${path}:`, err.message);
       throw err;
     }
-    html = applyDispatch(html, path);
+    html = applyBrand(applyDispatch(html, path));
 
     const rel = path === "/" ? "index.html" : `${path.replace(/^\//, "")}.html`;
     const file = join(dist, rel);
@@ -215,7 +247,15 @@ async function build() {
 
   // assets
   const baseCss = await readFile(join(root, "src/styles/site.css"), "utf8");
-  await writeFile(join(dist, "assets/site.css"), baseCss + DISPATCH_CSS, "utf8");
+  await writeFile(join(dist, "assets/site.css"), baseCss + BRAND_CSS + DISPATCH_CSS, "utf8");
+
+  // Logo lives at the repo root (or public/) so it can be uploaded on its own.
+  const logoSource = [join(root, "logo.png"), join(root, "public/logo.png")].find(existsSync);
+  if (logoSource) {
+    await cp(logoSource, join(dist, "assets/logo.png"));
+  } else {
+    console.warn("! No logo.png found at the project root — the header will show a broken image.");
+  }
   await cp(join(root, "src/client/site.js"), join(dist, "assets/site.js"));
   if (existsSync(join(root, "public"))) {
     await cp(join(root, "public"), join(dist, "assets"), { recursive: true });

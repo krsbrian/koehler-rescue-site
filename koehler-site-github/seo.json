@@ -1,0 +1,298 @@
+{
+  "_readme": "Per-page SEO. Keys are page paths. Set 'title' (aim for 50-60 characters) and/or 'description' (aim for 140-155). Delete an entry to fall back to the wording built into the page. Characters over 60/160 are reported by `node build.mjs`, so run it after editing.",
+
+  "/": {
+    "title": "24/7 Roadside Assistance | Michigan's Thumb Region",
+    "description": "24/7 roadside assistance in Caro and Michigan's Thumb. Lockouts, fuel, jump starts, tire changes and winch outs. Call 989-286-0100."
+  },
+  "/about": {
+    "title": "About Us | Locally Owned Roadside Help in Caro, MI",
+    "description": "Family-owned since 2020, Koehler Rescue Services runs 24/7 roadside assistance from Caro across Michigan's Thumb. Meet the team and our services."
+  },
+  "/services": {
+    "title": "Roadside Assistance Services | Lockouts, Jumps, Fuel",
+    "description": "Six roadside services across Michigan's Thumb, 24/7: auto lockouts, fuel delivery, jump starts, tire changes, tire repair add-ons and winch outs."
+  },
+  "/coverage-area": {
+    "title": "Coverage Area | 10 Counties in Michigan's Thumb",
+    "description": "Koehler Rescue Services covers 10 counties in Michigan's Thumb — Tuscola, Huron, Sanilac, Bay, Saginaw, Lapeer, Genesee, Shiawassee, St. Clair, Midland."
+  },
+  "/pricing": {
+    "title": "Roadside Pricing | Lockout $85, Jump $65, Tire $75",
+    "description": "Flat roadside rates in Michigan's Thumb: lockout $85, jump start $65, tire change $75, fuel $55 plus fuel, winch out $100-$175. $1/mile from Caro."
+  },
+  "/reviews": {
+    "title": "Customer Reviews | Koehler Rescue Services, Caro MI",
+    "description": "250+ reviews for Koehler Rescue Services across Google, the BBB, Yelp and Trustpilot. Locally owned 24/7 roadside assistance in Michigan's Thumb."
+  },
+  "/faqs": {
+    "title": "Roadside Assistance FAQs | Koehler Rescue Services",
+    "description": "Answers on pricing, 24/7 availability, coverage across Michigan's Thumb, vehicle types, and what to do while you wait for us to arrive."
+  },
+  "/contact": {
+    "title": "Contact Us | 24/7 Roadside Assistance in Caro, MI",
+    "description": "Call 989-286-0100 any hour, or email brian@koehlerrescue.com. Based in Caro, Michigan and serving the Thumb Region around the clock."
+  },
+  "/request-roadside-assistance": {
+    "title": "Request Roadside Assistance | 24/7, Michigan's Thumb",
+    "description": "Send your location, vehicle and issue online, or call 989-286-0100. 24/7 roadside help across Michigan's Thumb, dispatched from Caro."
+  },
+  "/blog": {
+    "title": "Roadside Assistance Blog | Koehler Rescue Services",
+    "description": "Practical roadside advice for Michigan's Thumb — flat tires, dead batteries, lockouts, fuel delivery and winter driving, from Koehler Rescue Services."
+  },
+  "/motor-club-insurance-partners": {
+    "title": "Motor Club & Insurance Partners | Koehler Rescue",
+    "description": "We work with AAA, Agero, Allstate, State Farm, Michigan Farm Bureau, Auto-Owners, Pinnacle Motor Club and more across Michigan's Thumb Region."
+  },
+  "/review-platforms": {
+    "title": "Leave a Review | Koehler Rescue Services",
+    "description": "Leave a review on Google, the Better Business Bureau, Yelp or Trustpilot. Feedback helps other drivers across Michigan's Thumb find us."
+  },
+  "/verified-partners-memberships": {
+    "title": "Verified Partners & Memberships | Koehler Rescue",
+    "description": "Koehler Rescue Services is listed with the BBB, Chamber of Commerce, EZlocal, ShowMeLocal, Trustpilot, 4 Road Service and Locally Owned & Operated."
+  },
+
+  "/services/auto-lockout-service": {
+    "title": "Auto Lockout Service | Caro & Michigan's Thumb, 24/7",
+    "description": "Locked out in Michigan's Thumb? Damage-free auto lockout service 24/7 for cars, trucks, SUVs and semis. $85 plus mileage from Caro. 989-286-0100."
+  },
+  "/services/fuel-delivery-service": {
+    "title": "Emergency Fuel Delivery | Gas & Diesel, 24/7",
+    "description": "Out of gas in the Thumb? We bring gasoline or diesel to your vehicle 24/7. $55 plus fuel and $1 per mile from Caro. Call 989-286-0100."
+  },
+  "/services/jump-start-service": {
+    "title": "Jump Start Service in Caro, MI | 24/7 Battery Help",
+    "description": "Dead battery in Michigan's Thumb? Professional jump starts 24/7 for cars, trucks, semis and buses. $65 flat service call. Call 989-286-0100."
+  },
+  "/services/tire-change-service": {
+    "title": "Mobile Tire Change Service | Caro & the Thumb, 24/7",
+    "description": "Flat tire in Michigan's Thumb? We come to you and install your spare — cars, trucks, SUVs and trailers, 24/7. $75 plus $1 per mile. 989-286-0100."
+  },
+  "/services/tire-repair-service": {
+    "title": "Roadside Tire Repair Add-On | $20 With Tire Change",
+    "description": "Minor roadside tire repair as a $20 add-on to a Koehler Rescue tire change in Michigan's Thumb. On-site puncture assessment, 24/7. 989-286-0100."
+  },
+  "/services/winch-out-service": {
+    "title": "Vehicle Winch Out Service | Caro & the Thumb, 24/7",
+    "description": "Stuck in mud, snow, sand or a ditch in Michigan's Thumb? Professional vehicle winch outs 24/7, $100-$175 plus mileage. Call 989-286-0100."
+  },
+
+  "/coverage-area/tuscola-county": {
+    "title": "Roadside Assistance in Tuscola County, MI | 24/7",
+    "description": "24/7 roadside assistance in Tuscola County, Michigan — Caro, Cass City, Vassar, Millington and Reese. Lockouts, jumps, fuel, tires and winch outs."
+  },
+  "/coverage-area/huron-county": {
+    "title": "Roadside Assistance in Huron County, MI | 24/7",
+    "description": "24/7 roadside assistance in Huron County, Michigan — Bad Axe, Caseville, Harbor Beach, Pigeon and Port Austin. Lockouts, jumps, fuel, tires, winch outs."
+  },
+  "/coverage-area/sanilac-county": {
+    "title": "Roadside Assistance in Sanilac County, MI | 24/7",
+    "description": "24/7 roadside assistance in Sanilac County, Michigan — Sandusky, Croswell, Lexington, Marlette and Brown City. Lockouts, jumps, fuel, tires, winch outs."
+  },
+  "/coverage-area/bay-county": {
+    "title": "Roadside Assistance in Bay County, MI | 24/7",
+    "description": "24/7 roadside assistance in Bay County, Michigan — Bay City, Essexville, Auburn, Pinconning and nearby. Lockouts, jumps, fuel, tires and winch outs."
+  },
+  "/coverage-area/saginaw-county": {
+    "title": "Roadside Assistance in Saginaw County, MI | 24/7",
+    "description": "24/7 roadside assistance in Saginaw County, Michigan — Saginaw, Frankenmuth, Birch Run, Chesaning and Freeland. Lockouts, jumps, fuel, tires, winch outs."
+  },
+  "/coverage-area/lapeer-county": {
+    "title": "Roadside Assistance in Lapeer County, MI | 24/7",
+    "description": "24/7 roadside assistance in Lapeer County, Michigan — Lapeer, Imlay City, Almont, Dryden and North Branch. Lockouts, jumps, fuel, tires and winch outs."
+  },
+  "/coverage-area/genesee-county": {
+    "title": "Roadside Assistance in Genesee County, MI | 24/7",
+    "description": "24/7 roadside assistance in Genesee County, Michigan — Flint, Grand Blanc, Davison, Flushing and Clio. Lockouts, jump starts, fuel, tires and winch outs."
+  },
+  "/coverage-area/shiawassee-county": {
+    "title": "Roadside Assistance in Shiawassee County, MI | 24/7",
+    "description": "24/7 roadside assistance in Shiawassee County, Michigan — Owosso, Corunna, Durand, Laingsburg and Perry. Lockouts, jumps, fuel, tires and winch outs."
+  },
+  "/coverage-area/saint-clair-county": {
+    "title": "Roadside Assistance in St. Clair County, MI | 24/7",
+    "description": "24/7 roadside assistance in St. Clair County, Michigan — Port Huron, Marysville, Marine City, Algonac and Yale. Lockouts, jumps, fuel, tires, winch outs."
+  },
+  "/coverage-area/midland-county": {
+    "title": "Roadside Assistance in Midland County, MI | 24/7",
+    "description": "24/7 roadside assistance in Midland County, Michigan — Midland, Sanford, Coleman and nearby. Lockouts, jumps, fuel, tire changes, repair and winch outs."
+  },
+
+  "/coverage-area/tuscola-county/caro": {
+    "title": "Roadside Assistance in Caro, MI | 24/7 Local Team",
+    "description": "Caro's local 24/7 roadside team. Lockouts, jump starts, fuel delivery, tire changes and winch outs from $65, based right here. Call 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/cass-city": {
+    "title": "Roadside Assistance in Cass City, MI | 24/7",
+    "description": "24/7 roadside assistance in Cass City, Michigan. Lockouts, jump starts, fuel delivery, tire changes and winch outs near M-81 and M-53. 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/vassar": {
+    "title": "Roadside Assistance in Vassar, MI | 24/7 Service",
+    "description": "Vassar, Michigan roadside assistance 24/7. Lockouts, jump starts, fuel delivery, tire changes and winch outs near M-15 and M-46. Call 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/millington": {
+    "title": "Roadside Assistance in Millington, MI | 24/7",
+    "description": "24/7 roadside assistance in Millington, Michigan — lockouts, jump starts, fuel delivery, tire changes and winch outs. Local, family-owned. 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/reese": {
+    "title": "Roadside Assistance in Reese, MI | 24/7 Near I-75",
+    "description": "Roadside assistance in Reese, Michigan, 24/7. Lockouts, jump starts, fuel delivery, tire changes and winch outs near M-81 and I-75. Call 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/akron": {
+    "title": "Roadside Assistance in Akron, MI | 24/7 Locally",
+    "description": "24/7 roadside assistance in Akron, Michigan. Auto lockouts, jump starts, fuel delivery, tire changes and winch outs. Call Koehler Rescue at 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/fairgrove": {
+    "title": "Roadside Assistance in Fairgrove, MI | 24/7",
+    "description": "Roadside assistance in Fairgrove, Michigan, available 24/7. Lockouts, jump starts, fuel delivery, tire changes and winch outs. Call 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/gagetown": {
+    "title": "Roadside Assistance in Gagetown, MI | 24/7",
+    "description": "24/7 roadside assistance in Gagetown, Michigan. Lockouts, jump starts, fuel delivery, tire changes and winch outs. Call Koehler Rescue at 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/kingston": {
+    "title": "Roadside Assistance in Kingston, MI | 24/7",
+    "description": "Roadside assistance in Kingston, Michigan, available 24/7. Lockouts, jump starts, fuel delivery, tire changes and winch outs. Call 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/mayville": {
+    "title": "Roadside Assistance in Mayville, MI | 24/7 Local",
+    "description": "24/7 roadside assistance in Mayville, Michigan. Auto lockouts, jump starts, fuel delivery, tire changes and winch outs. Family-owned, local. 989-286-0100."
+  },
+  "/coverage-area/tuscola-county/unionville": {
+    "title": "Roadside Assistance in Unionville, MI | 24/7",
+    "description": "Roadside assistance in Unionville, Michigan, 24/7. Lockouts, jump starts, fuel delivery, tire changes and winch outs near Saginaw Bay. 989-286-0100."
+  },
+
+  "/blog/24-7-fuel-delivery-your-lifeline-on-michigan-s-roads": {
+    "title": "24/7 Fuel Delivery on Michigan's Roads"
+  },
+  "/blog/a-comprehensive-guide-to-fuel-delivery-services-in-the-thumb-region-of-michigan": {
+    "title": "Fuel Delivery in Michigan's Thumb: A Guide"
+  },
+  "/blog/auto-lockout-service-fast-24-7-solutions-michigan-2026": {
+    "title": "Auto Lockout Service in Michigan: 24/7 Help"
+  },
+  "/blog/auto-lockout-service-regain-access-to-your-vehicle-swiftly-and-safely": {
+    "title": "Auto Lockout: Regain Access Safely, 24/7"
+  },
+  "/blog/avoid-being-stranded-expert-tips-for-handling-a-flat-tire-in-the-thumb-region": {
+    "title": "Flat Tire in the Thumb: What to Do"
+  },
+  "/blog/avoiding-stress-how-lockout-services-in-michigan-s-thumb-region-can-be-your-lifesaver": {
+    "title": "Lockout Help in Michigan's Thumb Region"
+  },
+  "/blog/car-cranks-but-wont-start-complete-2026-diagnostic-guide": {
+    "title": "Car Cranks but Won't Start: What to Check"
+  },
+  "/blog/car-not-starting-after-getting-gas-7-common-causes-solutions": {
+    "title": "Car Won't Start After Getting Gas: 7 Causes"
+  },
+  "/blog/comprehensive-guide-to-roadside-assistance-in-michigans-thumb-region": {
+    "title": "Roadside Assistance in the Thumb: Full Guide"
+  },
+  "/blog/dealing-with-flat-tires-your-comprehensive-guide-to-roadside-safety": {
+    "title": "Flat Tires: A Guide to Roadside Safety"
+  },
+  "/blog/essential-guide-to-tire-repair-keep-your-journeys-smooth-in-michigan-s-thumb-region": {
+    "title": "Tire Repair Guide for Michigan's Thumb"
+  },
+  "/blog/fast-reliable-roadside-assistance-in-michigan-koehler-rescue-services": {
+    "title": "Fast, Reliable Roadside Assistance in Michigan"
+  },
+  "/blog/fuel-delivery-service-in-michigans-thumb-region-keep-your-journey-smooth-with-koehler-rescue-services": {
+    "title": "Fuel Delivery in Michigan's Thumb, 24/7"
+  },
+  "/blog/how-to-safely-jump-start-your-car-expert-advice-from-koehler-rescue-services": {
+    "title": "How to Safely Jump Start Your Car"
+  },
+  "/blog/how-to-safely-jump-start-your-car-in-michigan-s-thumb-region": {
+    "title": "Jump Starting a Car Safely in the Thumb"
+  },
+  "/blog/how-to-safely-unlock-your-vehicle-expert-tips-from-koehler-rescue-services": {
+    "title": "How to Safely Unlock Your Vehicle"
+  },
+  "/blog/jump-start-service-your-lifeline-on-the-roads-of-michigan-s-thumb-region": {
+    "title": "Jump Start Service in the Thumb Region"
+  },
+  "/blog/jumping-a-car-battery-complete-step-by-step-guide-2026": {
+    "title": "Jumping a Car Battery: Step-by-Step Guide"
+  },
+  "/blog/keys-locked-in-car-how-to-handle-this-roadside-dilemma-in-michigan-s-thumb-region": {
+    "title": "Keys Locked in the Car? What to Do"
+  },
+  "/blog/koehler-rescue-services-fast-reliable-roadside-assistance-in-caro-michigan": {
+    "title": "Roadside Assistance in Caro, Michigan"
+  },
+  "/blog/lockout-service-ensuring-you-re-never-stuck-again-in-the-thumb-region-of-michigan": {
+    "title": "Lockout Service in Michigan's Thumb Region"
+  },
+  "/blog/mastering-tire-changes-keep-rolling-with-confidence-in-michigans-thumb-region": {
+    "title": "Roadside Tire Changes: What to Expect"
+  },
+  "/blog/never-be-left-stranded-your-comprehensive-guide-to-handling-a-flat-tire": {
+    "title": "Never Be Left Stranded With a Flat Tire"
+  },
+  "/blog/reliable-fuel-delivery-services-help-when-you-need-it-most": {
+    "title": "Reliable Fuel Delivery When You Need It"
+  },
+  "/blog/roadside-assistance-in-the-thumb-region-of-michigan-24-7-help": {
+    "title": "24/7 Roadside Assistance in Michigan's Thumb"
+  },
+  "/blog/roadside-assistance-near-me-find-fast-help-when-you-re-stranded": {
+    "title": "Roadside Assistance Near Me: Get Help Fast",
+    "description": "Searching \"roadside assistance near me\" from the shoulder of the road is stressful. Here's how to get real help fast instead of a call center."
+  },
+  "/blog/roadside-help-near-me-fast-24-7-emergency-assistance-guide": {
+    "title": "Roadside Help Near Me: The First 5 Minutes"
+  },
+  "/blog/solving-auto-lockout-headaches-your-go-to-guide-for-quick-help": {
+    "title": "Solving Auto Lockout Headaches"
+  },
+  "/blog/stuck-in-mud-snow-or-ditch-heres-how-we-can-help": {
+    "title": "Stuck in Mud, Snow or a Ditch? Read This"
+  },
+  "/blog/the-complete-guide-to-lockout-services-never-get-stuck-again": {
+    "title": "The Complete Guide to Lockout Services"
+  },
+  "/blog/tire-change-essentials-quick-solutions-for-your-roadside-emergencies": {
+    "title": "Roadside Tire Change: What to Expect"
+  },
+  "/blog/tire-repair-essentials-what-you-need-to-know-for-thumb-region-safety": {
+    "title": "Tire Repair Basics for Thumb Region Drivers"
+  },
+  "/blog/tire-weather-checking-essential-guide-for-safe-driving-2026": {
+    "title": "Tire Pressure by Season: What to Watch For"
+  },
+  "/blog/understanding-fuel-delivery-a-lifeline-for-stranded-drivers-in-michigan-s-thumb-region": {
+    "title": "Understanding Emergency Fuel Delivery"
+  },
+  "/blog/understanding-jump-start-services-avoid-getting-left-stranded": {
+    "title": "Jump Start Services: What They Do"
+  },
+  "/blog/understanding-roadside-assistance-how-koehler-rescue-services-can-keep-you-moving": {
+    "title": "What Roadside Assistance Covers (and Doesn't)"
+  },
+  "/blog/unlock-my-vehicle-your-essential-guide-to-quick-and-hassle-free-solutions": {
+    "title": "Unlock My Vehicle: A Quick Checklist"
+  },
+  "/blog/unlocking-peace-of-mind-how-koehler-rescue-services-simplifies-lockout-situations": {
+    "title": "Lockouts: A Five-Minute Interruption"
+  },
+  "/blog/website-update-in-progress": {
+    "title": "A New Look for Koehler Rescue Services"
+  },
+  "/blog/when-to-check-air-pressure-in-tires-complete-guide-2026": {
+    "title": "When to Check Tire Pressure"
+  },
+  "/blog/why-24-7-roadside-assistance-is-essential-for-drivers-in-michigan-s-thumb-region": {
+    "title": "Why 24/7 Roadside Help Matters in the Thumb"
+  },
+  "/blog/why-24-hour-roadside-assistance-is-essential-in-michigan-s-thumb-region": {
+    "title": "Why After-Hours Help Matters in the Thumb"
+  },
+  "/blog/winch-out-services-in-michigan-getting-you-back-on-the-road-safely": {
+    "title": "Winch Out Services: Back on the Road Safely"
+  }
+}

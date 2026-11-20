@@ -258,6 +258,84 @@ export function applyDispatch(html, path) {
   return html;
 }
 
+/* --------------------------------------------------------- seo overrides */
+/**
+ * Per-page title and description overrides live in seo.json at the repo root.
+ * That file is a top-level file, so it can be edited and uploaded on its own —
+ * the page templates under src/ cannot. Keys are page paths ("/pricing"), and
+ * every entry is optional: omit title or description to keep the generated one.
+ */
+let seoOverrides = {};
+let seoLoaded = false;
+
+async function loadSeoOverrides() {
+  if (seoLoaded) return;
+  seoLoaded = true;
+  try {
+    seoOverrides = JSON.parse(await readFile(join(root, "seo.json"), "utf8"));
+  } catch (err) {
+    if (err.code !== "ENOENT") console.warn(`! seo.json could not be read: ${err.message}`);
+    return;
+  }
+  for (const path of Object.keys(seoOverrides)) {
+    if (!path.startsWith("/")) continue; // keys like "_readme" are documentation
+    if (!routes.has(path)) console.warn(`! seo.json: no such page "${path}" — override ignored.`);
+  }
+}
+
+const escAttr = (s) =>
+  String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+/**
+ * Rewrite this page's title, description and the matching social tags from
+ * seo.json. Applied to the built HTML so the same edit covers <title>, the
+ * meta description, Open Graph and Twitter cards in one place.
+ */
+export function applySeo(html, path) {
+  const o = seoOverrides[path];
+  if (!o) return html;
+  let out = html;
+  if (o.title) {
+    const t = escAttr(o.title);
+    out = out
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>${t}</title>`)
+      .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${t}$2`)
+      .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${t}$2`);
+  }
+  if (o.description) {
+    const d = escAttr(o.description);
+    out = out
+      .replace(/(<meta name="description" content=")[^"]*(")/, `$1${d}$2`)
+      .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${d}$2`)
+      .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${d}$2`);
+  }
+  return out;
+}
+
+/**
+ * Link previews need a raster image: Facebook, LinkedIn and most messaging
+ * apps ignore an SVG og:image. Point every share tag at og.png and add the
+ * Twitter image tags the template never had.
+ */
+export function applyShareImage(html, hasPng = true) {
+  if (!hasPng) return html;
+  let out = html.replaceAll("/assets/og.svg", "/assets/og.png");
+  if (!out.includes('name="twitter:image"')) {
+    const alt = escAttr(`${SITE.name} — ${SITE.hoursShort} roadside assistance in ${SITE.city}, Michigan`);
+    out = out.replace(
+      '<meta name="twitter:card" content="summary_large_image" />',
+      `<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="${SITE.url}/assets/og.png" />
+<meta name="twitter:image:alt" content="${alt}" />`
+    );
+  }
+  return out;
+}
+
 /** route: url path -> { render(), sitemap metadata } */
 const routes = new Map();
 
@@ -363,8 +441,14 @@ async function build() {
   await mkdir(join(dist, "assets"), { recursive: true });
 
   const files = [];
+  const longTitles = [];
+  const longDescriptions = [];
+
+  await loadSeoOverrides();
 
   // Compose the stylesheet first so every page can reference this exact build.
+  const hasOgPng = existsSync(join(root, "og.png"));
+
   const baseCss = await readFile(join(root, "src/styles/site.css"), "utf8");
   const fullCss = baseCss + BRAND_CSS + DISPATCH_CSS;
   const cssVersion = createHash("sha1").update(fullCss).digest("hex").slice(0, 10);
@@ -377,7 +461,17 @@ async function build() {
       console.error(`✗ Failed rendering ${path}:`, err.message);
       throw err;
     }
-    html = applyAssetVersion(applyIcons(applyBrand(applyDispatch(html, path))), cssVersion);
+    html = applyAssetVersion(
+      applyShareImage(applySeo(applyIcons(applyBrand(applyDispatch(html, path))), path), hasOgPng),
+      cssVersion
+    );
+
+    // Flag SEO copy that search results would truncate. Warnings only: an
+    // over-long title still works, it just loses words in the result.
+    const finalTitle = (html.match(/<title>([\s\S]*?)<\/title>/) || [, ""])[1];
+    const finalDesc = (html.match(/<meta name="description" content="([^"]*)"/) || [, ""])[1];
+    if (finalTitle.length > 60) longTitles.push(`${path} (${finalTitle.length})`);
+    if (finalDesc.length > 160) longDescriptions.push(`${path} (${finalDesc.length})`);
 
     const rel = path === "/" ? "index.html" : `${path.replace(/^\//, "")}.html`;
     const file = join(dist, rel);
@@ -388,7 +482,7 @@ async function build() {
 
   // 404 page — same header/footer treatment as every other page
   const notFoundHtml = applyAssetVersion(
-    applyIcons(applyBrand(applyDispatch(notFoundPage(), "/404"))),
+    applyShareImage(applyIcons(applyBrand(applyDispatch(notFoundPage(), "/404"))), hasOgPng),
     cssVersion
   );
   await writeFile(join(dist, "404.html"), notFoundHtml, "utf8");
@@ -418,6 +512,14 @@ async function build() {
       console.warn(`! Cannot create ${iconFile} — no logo.png or ${iconFile} at the project root.`);
     }
   }
+  // 1200x630 share card. Also at the repo root so it uploads on its own.
+  const ogSource = [join(root, "og.png"), join(root, "public/og.png")].find(existsSync);
+  if (ogSource) {
+    await cp(ogSource, join(dist, "assets/og.png"));
+  } else {
+    console.warn("! No og.png at the project root — link previews keep the old SVG image.");
+  }
+
   await cp(join(root, "src/client/site.js"), join(dist, "assets/site.js"));
   if (existsSync(join(root, "public"))) {
     await cp(join(root, "public"), join(dist, "assets"), { recursive: true });
@@ -556,6 +658,12 @@ Host: ${SITE.url.replace("https://", "")}
   console.log(`✓ Build id ${buildId}`);
   console.log(`✓ Built ${routes.size} pages (${totalKb} KB of HTML) + 404, sitemap, robots`);
   console.log(`✓ ${Object.keys(redirects).length} redirects`);
+  const overrideCount = Object.keys(seoOverrides).filter((k) => k.startsWith("/")).length;
+  console.log(
+    `✓ SEO copy: ${overrideCount} page override(s) from seo.json · ${longTitles.length} title(s) over 60 chars, ${longDescriptions.length} description(s) over 160`
+  );
+  if (longTitles.length) console.log("  long titles:", longTitles.slice(0, 10).join(", "));
+  if (longDescriptions.length) console.log("  long descriptions:", longDescriptions.slice(0, 10).join(", "));
   const biggest = [...files].sort((a, b) => b.bytes - a.bytes).slice(0, 3);
   console.log("  largest pages:", biggest.map((f) => `${f.path} (${Math.round(f.bytes / 1024)}KB)`).join(", "));
 }

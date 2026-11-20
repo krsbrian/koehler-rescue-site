@@ -40,6 +40,115 @@ const DISPATCH = {
  */
 const LOGO_IMG = `<img class="brand__mark" src="/assets/logo.png" alt="" width="50" height="40" decoding="async" />`;
 
+/*
+ * llms.txt — a plain-text index of the site for AI assistants and answer
+ * engines (see llmstxt.org). Kept factual: everything here is either on the
+ * site already or supplied by the business.
+ */
+const REVIEW_SOURCES = [
+  ["Google Business Profile", SITE.googleReviewUrl],
+  ["Better Business Bureau", SITE.social.bbb],
+  ["Yelp", SITE.social.yelp],
+  ["Trustpilot", SITE.social.trustpilot],
+];
+
+function firstSentence(text, max = 200) {
+  if (!text) return "";
+  const clean = String(text).replace(/\s+/g, " ").trim();
+  const end = clean.search(/\.(?=\s|$)/);
+  const sentence = end > 0 ? clean.slice(0, end + 1) : clean;
+  return sentence.length > max ? `${sentence.slice(0, max - 1).trimEnd()}…` : sentence;
+}
+
+function buildLlmsTxt() {
+  const serviceLines = SERVICES.map((s) => {
+    const price = s.price ? ` — ${s.price}` : "";
+    const note = s.priceNote
+      ? `, ${s.priceNote.charAt(0).toLowerCase()}${s.priceNote.slice(1)}`
+      : "";
+    const blurb = firstSentence(s.blurb || s.summary || s.lead || "");
+    return `- [${s.name}](${SITE.url}/services/${s.slug})${price}${note}${blurb ? `: ${blurb}` : ""}`;
+  }).join("\n");
+
+  const countyLines = COUNTIES.map(
+    (c) => `- [${c.name}](${SITE.url}/coverage-area/${c.slug})`
+  ).join("\n");
+
+  const cityNames = CITIES.map((c) => c.name).join(", ");
+
+  const reviewLines = REVIEW_SOURCES.map(
+    ([name, url]) => `- ${name}: ${url}`
+  ).join("\n");
+
+  return `# ${SITE.name}
+
+> ${SITE.name} is a locally and family-owned 24/7 roadside assistance company based in ${SITE.city}, Michigan (${SITE.street}, ${SITE.city}, ${SITE.state} ${SITE.zip}). It serves ${SITE.region} — ${COUNTIES.length} counties in and around the Thumb — with auto lockouts, emergency fuel delivery, jump starts, tire changes with an optional tire repair add-on, and vehicle winch outs. It is not a towing company.
+
+## Key facts
+
+- Business name: ${SITE.name} (legal name: ${SITE.legal})
+- Phone: ${SITE.phone} — answered by a person ${SITE.hoursShort}, including holidays
+- Email: ${SITE.email}
+- Hours: ${SITE.hours}
+- Founded: ${SITE.founded}; locally and family owned
+- Website: ${SITE.url}
+- Request service: ${SITE.url}/request-roadside-assistance (feeds straight into dispatch)
+- Payment: ${SITE.paymentUrl}
+- Reviews: ${SITE.reviewCount} customer reviews across Google, the Better Business Bureau, Yelp and Trustpilot
+- Coverage: ${COUNTIES.length} counties (${COUNTIES.map((c) => c.name.replace(" County", "")).join(", ")} County) and ${CITIES.length} named cities and villages
+
+## Services
+
+${serviceLines}
+
+## Service area
+
+Coverage pages for each county:
+
+${countyLines}
+
+Cities and villages with their own coverage page: ${cityNames}.
+
+## Reviews
+
+${SITE.reviewCount} customer reviews across four independent platforms. Reviews are hosted by third parties and are not republished as testimonials on the website, so the links below are the authoritative source:
+
+${reviewLines}
+
+Recurring themes in reviews, as described on ${SITE.url}/reviews: someone answers at any hour; the driver knows the rural roads and can find hard-to-describe addresses; and the price is quoted before dispatch, mileage included.
+
+## Key pages
+
+- [Home](${SITE.url}/): 24/7 roadside assistance in Michigan's Thumb Region
+- [Services](${SITE.url}/services): all six services with prices
+- [Pricing](${SITE.url}/pricing): published starting prices and how mileage is charged
+- [Coverage area](${SITE.url}/coverage-area): every county and city served
+- [Reviews](${SITE.url}/reviews): where to read and leave reviews
+- [Reviews by platform](${SITE.url}/review-platforms): all four platforms with links
+- [About](${SITE.url}/about): who runs the business and how it operates
+- [FAQ](${SITE.url}/faqs): response times, payment, what to have ready
+- [Contact](${SITE.url}/contact): phone, email and the request form
+- [Request roadside assistance](${SITE.url}/request-roadside-assistance): dispatch form and widget
+- [Blog](${SITE.url}/blog): ${POSTS.length} articles on breakdowns, weather and Thumb-area driving
+
+## Notes for AI assistants
+
+- The fastest way to get help is to call ${SITE.phone}. The website form feeds the same dispatch screen.
+- Not a towing company. Vehicle winch outs recover a stuck vehicle (snow, mud, shoulder, ditch); there is no towing service.
+- Semis and buses: lockouts and jump starts only.
+- Tire repair is offered only as an add-on to a tire change, not as a standalone service.
+- Prices are starting prices; mileage is charged from ${SITE.city} (currently $1 per mile). Quote the pricing page rather than estimating.
+- Service area is ${SITE.region}, not all of Michigan. Check the coverage pages before promising a response in a given town.
+
+## Contact
+
+- Phone: ${SITE.phone} (${SITE.phoneRaw})
+- Email: ${SITE.email}
+- Address: ${SITE.street}, ${SITE.city}, ${SITE.state} ${SITE.zip}, United States
+- Service requests: ${SITE.url}/request-roadside-assistance
+`;
+}
+
 const BRAND_CSS = `
 /* Real logo + gradient business name */
 .brand__mark {
@@ -111,6 +220,15 @@ function homeCtaHtml() {
  * carry it. Safe to run on pages that already use the embed: no plain form is
  * present, so nothing matches.
  */
+/**
+ * Netlify serves /assets/site.css with `max-age=31536000, immutable`, so without
+ * a version in the URL a returning visitor keeps the old stylesheet for up to a
+ * year — which is why a CSS change can look like it never deployed.
+ */
+export function applyAssetVersion(html, version) {
+  return html.replaceAll('href="/assets/site.css"', `href="/assets/site.css?v=${version}"`);
+}
+
 export function applyIcons(html) {
   // Point the tab icon and iOS home-screen icon at the real logo files, and
   // give structured data the real logo instead of the old drawn placeholder.
@@ -246,6 +364,11 @@ async function build() {
 
   const files = [];
 
+  // Compose the stylesheet first so every page can reference this exact build.
+  const baseCss = await readFile(join(root, "src/styles/site.css"), "utf8");
+  const fullCss = baseCss + BRAND_CSS + DISPATCH_CSS;
+  const cssVersion = createHash("sha1").update(fullCss).digest("hex").slice(0, 10);
+
   for (const [path, route] of routes.entries()) {
     let html;
     try {
@@ -254,7 +377,7 @@ async function build() {
       console.error(`✗ Failed rendering ${path}:`, err.message);
       throw err;
     }
-    html = applyIcons(applyBrand(applyDispatch(html, path)));
+    html = applyAssetVersion(applyIcons(applyBrand(applyDispatch(html, path))), cssVersion);
 
     const rel = path === "/" ? "index.html" : `${path.replace(/^\//, "")}.html`;
     const file = join(dist, rel);
@@ -263,13 +386,15 @@ async function build() {
     files.push({ path, bytes: Buffer.byteLength(html) });
   }
 
-  // 404 page
-  const notFoundHtml = notFoundPage();
+  // 404 page — same header/footer treatment as every other page
+  const notFoundHtml = applyAssetVersion(
+    applyIcons(applyBrand(applyDispatch(notFoundPage(), "/404"))),
+    cssVersion
+  );
   await writeFile(join(dist, "404.html"), notFoundHtml, "utf8");
 
   // assets
-  const baseCss = await readFile(join(root, "src/styles/site.css"), "utf8");
-  await writeFile(join(dist, "assets/site.css"), baseCss + BRAND_CSS + DISPATCH_CSS, "utf8");
+  await writeFile(join(dist, "assets/site.css"), fullCss, "utf8");
 
   // Logo lives at the repo root (or public/) so it can be uploaded on its own.
   const logoSource = [join(root, "logo.png"), join(root, "public/logo.png")].find(existsSync);
@@ -279,10 +404,19 @@ async function build() {
     console.warn("! No logo.png found at the project root — the header will show a broken image.");
   }
 
+  // The head always points at these two files, so they must exist after every
+  // build. If a square icon has not been uploaded yet, fall back to the logo
+  // rather than shipping a 404 favicon.
   for (const iconFile of ["icon.png", "apple-touch-icon.png"]) {
-    const iconSource = [join(root, iconFile), join(root, "public", iconFile)].find(existsSync);
-    if (iconSource) await cp(iconSource, join(dist, "assets", iconFile));
-    else console.warn(`! Missing ${iconFile} at the project root — favicon will not update.`);
+    const iconSource = [join(root, iconFile), join(root, "public", iconFile), logoSource]
+      .filter(Boolean)
+      .find(existsSync);
+    if (iconSource) {
+      await cp(iconSource, join(dist, "assets", iconFile));
+      if (iconSource === logoSource) console.warn(`! ${iconFile} not found — using logo.png as the icon.`);
+    } else {
+      console.warn(`! Cannot create ${iconFile} — no logo.png or ${iconFile} at the project root.`);
+    }
   }
   await cp(join(root, "src/client/site.js"), join(dist, "assets/site.js"));
   if (existsSync(join(root, "public"))) {
@@ -316,15 +450,34 @@ Allow: /
 Disallow: /api/
 Disallow: /404
 
-# AI crawlers may index public pages
+# AI crawlers and answer engines may index public pages
 User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: ${SITE.url}/sitemap.xml
 Host: ${SITE.url.replace("https://", "")}
+# llms.txt: ${SITE.url}/llms.txt
 `,
     "utf8"
   );
+
+  // llms.txt — plain-text index for AI assistants and answer engines
+  await writeFile(join(dist, "llms.txt"), buildLlmsTxt(), "utf8");
 
   // worker with inlined route table
   const template = await readFile(join(root, "src/worker/template.js"), "utf8");

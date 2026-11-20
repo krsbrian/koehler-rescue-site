@@ -299,19 +299,21 @@ export function applySeo(html, path) {
   const o = seoOverrides[path];
   if (!o) return html;
   let out = html;
+  // Replacer functions, not "$1...$2" strings: a price like "$100" in the
+  // copy would otherwise be read as a back-reference and corrupt the tag.
   if (o.title) {
     const t = escAttr(o.title);
     out = out
-      .replace(/<title>[\s\S]*?<\/title>/, `<title>${t}</title>`)
-      .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${t}$2`)
-      .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${t}$2`);
+      .replace(/<title>[\s\S]*?<\/title>/, () => `<title>${t}</title>`)
+      .replace(/(<meta property="og:title" content=")[^"]*(")/, (_, a, b) => `${a}${t}${b}`)
+      .replace(/(<meta name="twitter:title" content=")[^"]*(")/, (_, a, b) => `${a}${t}${b}`);
   }
   if (o.description) {
     const d = escAttr(o.description);
     out = out
-      .replace(/(<meta name="description" content=")[^"]*(")/, `$1${d}$2`)
-      .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${d}$2`)
-      .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${d}$2`);
+      .replace(/(<meta name="description" content=")[^"]*(")/, (_, a, b) => `${a}${d}${b}`)
+      .replace(/(<meta property="og:description" content=")[^"]*(")/, (_, a, b) => `${a}${d}${b}`)
+      .replace(/(<meta name="twitter:description" content=")[^"]*(")/, (_, a, b) => `${a}${d}${b}`);
   }
   return out;
 }

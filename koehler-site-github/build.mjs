@@ -176,6 +176,22 @@ const BRAND_CSS = `
 }
 `;
 
+const TEL_CSS = `
+/* Tap-to-call numbers wrapped into body copy keep the surrounding text colour,
+   so they stay readable on the dark hero, CTA band and footer, with the
+   underline as the link cue. */
+a.tel-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a.tel-link:hover {
+  color: inherit;
+  text-decoration-thickness: 2px;
+}
+`;
+
 const DISPATCH_CSS = `
 /* Roadsider dispatch embed */
 .dispatch-frame iframe {
@@ -248,6 +264,44 @@ export function applyBrand(html) {
   // Swap the drawn placeholder shield for the real logo. No-op once the
   // template itself renders the image.
   return html.replace(/<svg class="brand__mark"[\s\S]*?<\/svg>/g, LOGO_IMG);
+}
+
+const PHONE_TEXT_RE = /(?<![\d+])989[-\s.]?286[-\s.]?0100(?![\d])/g;
+
+/**
+ * Make plain-text phone numbers in body copy tappable. The header, footer and
+ * call buttons are already links, so only text outside an anchor is rewritten —
+ * and only inside <body>, which leaves meta descriptions and the JSON-LD
+ * telephone string exactly as they are.
+ */
+export function applyTelLinks(html) {
+  const bodyOpen = html.indexOf("<body");
+  const bodyClose = html.lastIndexOf("</body>");
+  if (bodyOpen === -1 || bodyClose === -1) return html;
+  const start = html.indexOf(">", bodyOpen) + 1;
+  const head = html.slice(0, start);
+  const tailHtml = html.slice(bodyClose);
+  const body = html.slice(start, bodyClose);
+  const link = (n) => `<a class="tel-link" href="tel:${SITE.phoneRaw}">${n}</a>`;
+  let depth = 0; // inside <a>, <script> or <style>
+  let out = "";
+  let last = 0;
+  const tagRe = /<[^>]+>/g;
+  let m;
+  while ((m = tagRe.exec(body))) {
+    const text = body.slice(last, m.index);
+    out += depth > 0 ? text : text.replace(PHONE_TEXT_RE, link);
+    const tag = m[0];
+    const name = (tag.match(/^<\/?\s*([a-zA-Z0-9]+)/) || [, ""])[1].toLowerCase();
+    const skip = name === "a" || name === "script" || name === "style";
+    if (skip && !tag.startsWith("</") && !tag.endsWith("/>")) depth++;
+    else if (skip && tag.startsWith("</")) depth = Math.max(0, depth - 1);
+    out += tag;
+    last = m.index + tag.length;
+  }
+  const rest = body.slice(last);
+  out += depth > 0 ? rest : rest.replace(PHONE_TEXT_RE, link);
+  return head + out + tailHtml;
 }
 
 export function applyDispatch(html, path) {
@@ -452,7 +506,7 @@ async function build() {
   const hasOgPng = existsSync(join(root, "og.png"));
 
   const baseCss = await readFile(join(root, "src/styles/site.css"), "utf8");
-  const fullCss = baseCss + BRAND_CSS + DISPATCH_CSS;
+  const fullCss = baseCss + BRAND_CSS + TEL_CSS + DISPATCH_CSS;
   const cssVersion = createHash("sha1").update(fullCss).digest("hex").slice(0, 10);
 
   for (const [path, route] of routes.entries()) {
@@ -464,7 +518,9 @@ async function build() {
       throw err;
     }
     html = applyAssetVersion(
-      applyShareImage(applySeo(applyIcons(applyBrand(applyDispatch(html, path))), path), hasOgPng),
+      applyTelLinks(
+        applyShareImage(applySeo(applyIcons(applyBrand(applyDispatch(html, path))), path), hasOgPng)
+      ),
       cssVersion
     );
 
@@ -484,7 +540,9 @@ async function build() {
 
   // 404 page — same header/footer treatment as every other page
   const notFoundHtml = applyAssetVersion(
-    applyShareImage(applyIcons(applyBrand(applyDispatch(notFoundPage(), "/404"))), hasOgPng),
+    applyTelLinks(
+      applyShareImage(applyIcons(applyBrand(applyDispatch(notFoundPage(), "/404"))), hasOgPng)
+    ),
     cssVersion
   );
   await writeFile(join(dist, "404.html"), notFoundHtml, "utf8");
@@ -514,6 +572,28 @@ async function build() {
       console.warn(`! Cannot create ${iconFile} — no logo.png or ${iconFile} at the project root.`);
     }
   }
+  // /favicon.ico — browsers, feed readers and link-preview bots ask for it at
+  // the site root even when the tab icon is declared in the head, so publish a
+  // real .ico built from the square icon. 256px PNGs go in an ICO at width 0.
+  if (existsSync(join(dist, "assets/icon.png"))) {
+    const png = await readFile(join(dist, "assets/icon.png"));
+    const isPng = png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+    if (isPng) {
+      const w = png.readUInt32BE(16);
+      const h = png.readUInt32BE(20);
+      const header = Buffer.alloc(22);
+      header.writeUInt16LE(1, 2); // type: icon
+      header.writeUInt16LE(1, 4); // one image
+      header[6] = w >= 256 ? 0 : w;
+      header[7] = h >= 256 ? 0 : h;
+      header.writeUInt16LE(1, 10); // colour planes
+      header.writeUInt16LE(32, 12); // bits per pixel
+      header.writeUInt32LE(png.length, 14);
+      header.writeUInt32LE(22, 18);
+      await writeFile(join(dist, "favicon.ico"), Buffer.concat([header, png]));
+    }
+  }
+
   // 1200x630 share card. Also at the repo root so it uploads on its own.
   const ogSource = [join(root, "og.png"), join(root, "public/og.png")].find(existsSync);
   if (ogSource) {
